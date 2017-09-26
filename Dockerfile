@@ -1,13 +1,9 @@
-FROM mhart/alpine-node:latest
-
-RUN rm -rf /tmp/node_modules
-ADD package.json /tmp/package.json
-RUN cd /tmp && npm install
-RUN mkdir -p /opt/app && cp -a /tmp/node_modules /opt/app/
-
-WORKDIR /opt/app
-ADD . /opt/app
-
+# create a file named Dockerfile
+FROM node:argon
+RUN mkdir /app
+WORKDIR /app
+COPY package.json /app
+RUN npm install
+COPY . /app
 EXPOSE 3000
-
 CMD ["npm", "start"]

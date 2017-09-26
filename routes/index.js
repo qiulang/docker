@@ -3,7 +3,7 @@ var router = express.Router();
 var mongodb = require('mongodb');
 var client = mongodb.MongoClient;
 
-var uri = "mongodb://localhost/dummy-app";
+var uri = "mongodb://mongo/dummy-app";
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -28,6 +28,7 @@ router.post('/data/into/db', function(req, res, next) {
 	    
     	var collection = db.collection('dummy');
     	collection.insertMany(req.body, function(err, result) {
+			if (err) return next(err);
 			return res.json({ result: "success" });
     	});
 	});
